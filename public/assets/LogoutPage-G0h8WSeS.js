@@ -1,1 +1,0 @@
-import{q as a,s as n,j as o,S as r}from"./index-ZyXLkIDq.js";import{B as i}from"./button-F2NWwvki.js";const d=()=>{const e=a(),t=n.useSetUser();e!=null&&e.name||(window.location.pathname="/");const s=()=>{t(void 0),localStorage.removeItem("wedd-app")};return o.jsx(r,{$height:"100vh",children:o.jsx(i,{onClick:s,children:"Выйти из аккаунта"})})};export{d as default};
