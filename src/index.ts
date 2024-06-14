@@ -12,7 +12,7 @@ app.use(express.static('public'))
 app.use(cors({
   credentials: true,
 }))
-app.use('/', router)
+app.use('/app', router)
 
 const start = async () => {
   try {
