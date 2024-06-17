@@ -9,13 +9,24 @@ class UserController {
       const userService = new UserService(getFirestore())
 
       const user = await userService.registration(req.body.name, req.body.surname, req.body.password)
-      console.log(user)
       res.status(200)
-      res.send(JSON.stringify({user: 'User created'}))
-    } catch (error) {
+      res.header({
+        'Content-type': 'application/json'
+      })
+      res.send(JSON.stringify({user: 'User created/exist'}))
+    } catch (error: any) {
       console.log('ERROR ON REGISTRATION', error)
-      // res.status(400)
-      res.send(JSON.stringify({error: 'Такой пользователь уже существует' }))
+      res.header({
+        'Content-type': 'application/json'
+      })
+      if (error.error === 'exist') {
+        res.status(200)
+        res.send(JSON.stringify({user: 'User created/exist'}))
+        return 
+      }
+      
+      res.status(400)
+      res.send(JSON.stringify({error: 'Непредвиденная ошибка' }))
     }
   }
 

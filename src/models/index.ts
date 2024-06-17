@@ -7,7 +7,7 @@ class UserModel {
 
   async registration(name: string, surname: string, password: string) {
     try {
-      const newUser = await this.db.collection('wed-app').doc(password).set({ name, surname, songs: [], food: []})
+      const newUser = await this.db.collection('wed-app').doc(`${String(password)}_${String(name)}`).set({ name, surname, songs: [], food: []})
 
       return newUser
     } catch (error) {
@@ -17,15 +17,16 @@ class UserModel {
 
   async findUser(name: string, password: string) {
     try {
-      const a = await this.db.collection('wed-app').doc(String(password)).get()
-
-      if (a.data()?.name === name) throw new Error('Пользователь уже существует')
+      const a = await this.db.collection('wed-app').doc(`${String(password)}_${String(name)}`).get()
+      console.log(a.data())
+      if (a.data()?.name) throw ({message: 'Пользователь уже существует', error: 'exist'})
   
       return true
     } catch (error: any) {
-      throw new Error(error.message)
+      throw error
     }
   }
 }
 
-export {UserModel}
+
+export { UserModel }

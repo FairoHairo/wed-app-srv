@@ -11,10 +11,10 @@ class UserService {
     try {
       const userModel = new UserModel(this.db)
       await userModel.findUser(name, password)
-   
+      console.log("NOT")
       const register = await userModel.registration(name, surname, password)
     
-      return register
+      // return register
     } catch (error) {
       throw error
     }
